@@ -1,5 +1,8 @@
 package pri.jjlouis.leetcode.answer;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @Author : xiongyijie
  * @Time : 2018/9/30 20:13
@@ -40,38 +43,25 @@ package pri.jjlouis.leetcode.answer;
  */
 public class UniqueMorseCodeWords {
     private final static String[] MORSE_CODE = new String[]{".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
-    private final static byte[] BYTES = new byte[MORSE_CODE.length];
-    private final static byte[]
-    static {
-        for(int i = 0;i < MORSE_CODE.length;i++){
-            byte tmp =  0xFF;
-            byte[] chars= MORSE_CODE[i].getBytes();
-            for(int j = 0;j < chars.length;j++){
-                if(chars[j] == '.'){
 
-                }
-            }
-        }
-    }
-
-    public static char[] getCode(String str){
-        char[] codes = new char[12 * 4];
+    public static String getCode(String str){
         if(str == null || str.length() == 0){
             return null;
         }
+        StringBuffer buffer = new StringBuffer();
         char[] chars = str.toCharArray(); // gin ->g
-        byte index = 1;
-        for(char ch : chars){
-            for(char co:MORSE_CODE_CHAR_ARRAY[ch - 97]){
-                chars[index++] = co;
-            }
+        for(int i = 0;i < chars.length;i++){
+            buffer.append(MORSE_CODE[chars[i] - 97]);
         }
-        chars[0] = (char)(index - 1);
-        return codes;
+        return buffer.toString();
     }
 
     public int solution(String[] words){
-
+        Set<String> set = new HashSet<>();
+        for(String word : words){
+            set.add(getCode(word));
+        }
+        return set.size();
     }
 
     public static void main(String[] args) {
